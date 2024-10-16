@@ -11,17 +11,6 @@ const UserList: React.FC<UserListProps> = ({ users, setUsers }) => {
   if (users.length === 0) {
     return <div>Загрузка данных...</div>;
   }
-  const handleSort = (key: "city" | "company") => {
-    const sortedUsers = [...users].sort((a, b) => {
-      if (key === "city") {
-        return a.address.city.localeCompare(b.address.city);
-      } else if (key === "company") {
-        return a.company.name.localeCompare(b.company.name);
-      }
-      return 0;
-    });
-    setUsers(sortedUsers);
-  };
 
   return (
     <div className="wrapper">

@@ -55,7 +55,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
   const handleSubmit = () => {
     const newErrors: Record<string, boolean> = {};
 
-    // Проверка обязательных полей
     if (!formData?.name || formData?.name.trim() === "") {
       newErrors.name = true;
     }
@@ -71,21 +70,15 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
     if (!formData?.website || formData?.website.trim() === "") {
       newErrors.website = true;
     }
-
-    // Устанавливаем ошибки
     setErrors(newErrors);
 
-    console.log("Ошибки валидации:", newErrors); // Проверь, выводятся ли ошибки
-
-    // Если ошибок нет, сохраняем данные
     if (Object.keys(newErrors).length === 0) {
       const updatedUsers = users.map((u) =>
         u.id === formData?.id ? formData : u
       );
-      console.log("Обновленные данные:", formData); // Это для проверки
-      setUsers(updatedUsers); // обновляем пользователей
-
-      setIsEditable(false); // Снимаем режим редактирования после отправки
+      console.log("Обновленные данные:", formData);
+      setUsers(updatedUsers);
+      setIsEditable(false);
     }
   };
 
