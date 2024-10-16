@@ -123,13 +123,15 @@ ul {
 }
 
 .content {
-  padding: 20px;
+  padding: 35px;
   min-width: 515px;
+}
+.content-wrapper {
+  width: 100%;
 }
 .content-title {
   margin: 0 0 15px 0;
-  color: rgb(0, 0, 0);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 16px;
   letter-spacing: 0%;
@@ -141,11 +143,10 @@ ul {
 .profile-wrapper {
   max-width: 800px;
   margin: 0 auto;
-  padding: 40px 20px;
 }
 
 .profile-wrapper h1 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 16px;
   margin-bottom: 35px;
@@ -153,6 +154,11 @@ ul {
 .title-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+.title-wrapper h1 {
+  margin: 0;
 }
 .profile-form {
   display: flex;
@@ -212,4 +218,7 @@ ul {
 .button-send:disabled {
   cursor: not-allowed;
   background: rgb(175, 175, 175);
+}
+.profile-form input.error {
+  border: 1px solid red;
 }

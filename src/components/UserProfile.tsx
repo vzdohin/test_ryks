@@ -12,6 +12,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isEditable, setIsEditable] = useState(false);
   const [formData, setFormData] = useState<User | null>(null);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const currentUser = users.find((u) => u.id === Number(id));
@@ -52,25 +53,39 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
   };
 
   const handleSubmit = () => {
-    if (formData) {
-      if (
-        !formData.name ||
-        !formData.email ||
-        !formData.address.city ||
-        !formData.phone ||
-        !formData.website
-      ) {
-        alert("Пожалуйста, заполните все обязательные поля.");
-        return;
-      }
+    const newErrors: Record<string, boolean> = {};
 
+    // Проверка обязательных полей
+    if (!formData?.name || formData?.name.trim() === "") {
+      newErrors.name = true;
+    }
+    if (!formData?.email || formData?.email.trim() === "") {
+      newErrors.email = true;
+    }
+    if (!formData?.address.city || formData?.address.city.trim() === "") {
+      newErrors.city = true;
+    }
+    if (!formData?.phone || formData?.phone.trim() === "") {
+      newErrors.phone = true;
+    }
+    if (!formData?.website || formData?.website.trim() === "") {
+      newErrors.website = true;
+    }
+
+    // Устанавливаем ошибки
+    setErrors(newErrors);
+
+    console.log("Ошибки валидации:", newErrors); // Проверь, выводятся ли ошибки
+
+    // Если ошибок нет, сохраняем данные
+    if (Object.keys(newErrors).length === 0) {
       const updatedUsers = users.map((u) =>
-        u.id === formData.id ? formData : u
+        u.id === formData?.id ? formData : u
       );
-      setUsers(updatedUsers);
-      console.log("Обновленные данные пользователя:", formData);
+      console.log("Обновленные данные:", formData); // Это для проверки
+      setUsers(updatedUsers); // обновляем пользователей
 
-      setIsEditable(false);
+      setIsEditable(false); // Снимаем режим редактирования после отправки
     }
   };
 
@@ -95,6 +110,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.name || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.name ? "error" : ""}
           />
         </div>
         <div>
@@ -105,6 +121,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.username || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.username ? "error" : ""}
           />
         </div>
         <div>
@@ -115,6 +132,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.email || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.email ? "error" : ""}
           />
         </div>
         <div>
@@ -125,6 +143,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.address.street || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.address ? "error" : ""}
           />
         </div>
         <div>
@@ -135,6 +154,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.address.city || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.address ? "error" : ""}
           />
         </div>
         <div>
@@ -145,6 +165,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.address.zipcode || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.address ? "error" : ""}
           />
         </div>
         <div>
@@ -155,6 +176,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.phone || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.phone ? "error" : ""}
           />
         </div>
         <div>
@@ -165,6 +187,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ users, setUsers }) => {
             value={formData?.website || ""}
             onChange={handleChange}
             disabled={!isEditable}
+            className={errors.website ? "error" : ""}
           />
         </div>
         <div>

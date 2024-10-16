@@ -25,24 +25,7 @@ const UserList: React.FC<UserListProps> = ({ users, setUsers }) => {
 
   return (
     <div className="wrapper">
-      <div className="sidebar">
-        <p className="filter-title">Сортировка</p>
-        <div className="filter-wrapper">
-          <button
-            className="profile-form-button"
-            onClick={() => handleSort("city")}
-          >
-            По городу
-          </button>
-          <button
-            className="profile-form-button"
-            onClick={() => handleSort("company")}
-          >
-            По компании
-          </button>
-        </div>
-      </div>
-      <div className="content">
+      <div className="content-wrapper">
         <h2 className="content-title">Список пользователей</h2>
         <ul>
           {users.map((user) => (
